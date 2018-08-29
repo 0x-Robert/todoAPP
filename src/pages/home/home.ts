@@ -1,7 +1,9 @@
 import { Component ,OnInit} from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController ,ModalController} from 'ionic-angular';
 
 import todos from '../../data/todos';
+import {TodoPage} from '../todo/todo';
+import { NewTodoPage } from '../new-todo/new-todo';
 
 
 
@@ -20,18 +22,32 @@ export class HomePage implements OnInit {
   }[];
 
 
-  constructor(public navCtrl: NavController) {
-
+  constructor(public navCtrl: NavController,
+    public modalCtrl: ModalController
+  ) {
+       
   }
 
   ngOnInit(){
       this.todos=todos;
+  }
+
+  openTodo(todoId){
+
+      this.navCtrl.push(TodoPage, {id: todoId} );
+  }
+   
+  openNewTodo(){
+
+      let modal = this.modalCtrl.
+      create(NewTodoPage);
+
+      modal.present();
 
   }
 
-  openNewTodo(todoId){
-    
-
+  deleteTodo(todoId){
+    todos.splice(todoId-1,1);
   }
 
 }
